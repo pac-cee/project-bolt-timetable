@@ -1,5 +1,4 @@
 import React from 'react';
-import React from 'react';
 import AuthPanel from './AuthPanel';
 import TimetableFileUploadPanel from './TimetableFileUploadPanel';
 import DashboardLayout from './DashboardLayout';

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 // Accepts JWT token as prop
 export default function TimetableFileUploadPanel({ token, onUploaded }: { token: string, onUploaded?: () => void }) {
