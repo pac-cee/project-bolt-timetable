@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 
 // Accepts JWT token as prop
-export default function TimetableFileUploadPanel({ token }: { token: string }) {
+export default function TimetableFileUploadPanel({ token, onUploaded }: { token: string, onUploaded?: () => void }) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [message, setMessage] = useState("");
 
@@ -20,6 +20,7 @@ export default function TimetableFileUploadPanel({ token }: { token: string }) {
     });
     const data = await res.json();
     setMessage(data.message || JSON.stringify(data));
+    if (res.ok && onUploaded) onUploaded();
   };
 
   return (
