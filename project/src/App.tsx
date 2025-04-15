@@ -3,10 +3,26 @@ import { FileUpload } from './components/file-upload';
 import { AuthForm } from './components/auth/auth-form';
 import { Brain } from 'lucide-react';
 import { useAuthStore } from './store/auth-store';
-import TimetableDemoPanel from './TimetableDemoPanel';
+import AuthPanel from './AuthPanel';
+import TimetableFileUploadPanel from './TimetableFileUploadPanel';
+// import TimetableDemoPanel from './TimetableDemoPanel';
+
+import PlanAndProgressPanel from './PlanAndProgressPanel';
 
 function App() {
   const user = useAuthStore((state) => state.user);
+  const [token, setToken] = React.useState(() => localStorage.getItem('jwt_token') || '');
+  const [fileUploaded, setFileUploaded] = React.useState(false);
+
+  const handleAuth = (tk: string) => {
+    setToken(tk);
+    localStorage.setItem('jwt_token', tk);
+  };
+  const handleLogout = () => {
+    setToken('');
+    setFileUploaded(false);
+    localStorage.removeItem('jwt_token');
+  };
 
   return (
     <div className="min-h-screen bg-neutral-50">
@@ -83,7 +99,16 @@ function App() {
           )}
         </div>
       </main>
-      <TimetableDemoPanel />
+      {/* <TimetableDemoPanel /> */}
+      {token ? (
+        fileUploaded ? (
+          <PlanAndProgressPanel token={token} onLogout={handleLogout} />
+        ) : (
+          <TimetableFileUploadPanel token={token} onUploaded={() => setFileUploaded(true)} />
+        )
+      ) : (
+        <AuthPanel onAuth={handleAuth} />
+      )}
     </div>
   );
 }
