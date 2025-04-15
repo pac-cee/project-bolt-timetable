@@ -3,6 +3,7 @@ import { FileUpload } from './components/file-upload';
 import { AuthForm } from './components/auth/auth-form';
 import { Brain } from 'lucide-react';
 import { useAuthStore } from './store/auth-store';
+import TimetableDemoPanel from './TimetableDemoPanel';
 
 function App() {
   const user = useAuthStore((state) => state.user);
@@ -82,6 +83,7 @@ function App() {
           )}
         </div>
       </main>
+      <TimetableDemoPanel />
     </div>
   );
 }
